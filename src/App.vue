@@ -1,13 +1,22 @@
 <script setup lang="ts">
-import SqlPage from './components/sqlPage.vue';
+import leftSideBar from './components/LeftSideBar.vue';
+import SqlPage from './components/SqlPage.vue';
 
 
 </script>
 
 <template>
-  <SqlPage></SqlPage>
+  <el-container>
+
+    <leftSideBar></leftSideBar>
+    <RouterView/>
+  </el-container>
+
+  <!-- <SqlPage></SqlPage> -->
 </template>
 
-<style scoped>
-
+<style>
+.el-container {
+  height: 100%;
+}
 </style>
