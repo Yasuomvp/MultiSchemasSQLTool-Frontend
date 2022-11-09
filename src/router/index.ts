@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import sqlPageVue from '@/components/sqlPage.vue'
-
+import SqlPageVue from '@/components/SqlPage.vue'
+import NewDatasourceVue from '@/components/forms/newDatasource.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,15 +8,12 @@ const router = createRouter({
     {
       path: '/sqlPage',
       name: 'sqlPage',
-      component: sqlPageVue
+      component: SqlPageVue,
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      path: '/newDatasource',
+      name: 'newDatasource',
+      component: NewDatasourceVue
     }
   ]
 })
