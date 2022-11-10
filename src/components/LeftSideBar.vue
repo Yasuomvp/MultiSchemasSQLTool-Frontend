@@ -13,7 +13,7 @@
                     </el-icon>
                     <span>Work Order Management</span>
                 </el-menu-item>
-                <el-menu-item index="newDatasource">
+                <el-menu-item index="datasourceManage">
                     <el-icon>
                         <setting />
                     </el-icon>
