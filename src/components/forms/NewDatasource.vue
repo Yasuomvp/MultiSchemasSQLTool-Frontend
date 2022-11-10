@@ -30,6 +30,7 @@ import { reactive, ref } from 'vue'
 import type { FormInstance, FormRules } from 'element-plus'
 import { computed } from '@vue/reactivity';
 import sqlToolToolRequest from '../../service'
+import { ElNotification } from 'element-plus'
 
 const formSize = ref('default')
 const DbFormRef = ref<FormInstance>()
@@ -40,9 +41,7 @@ const DbForm = reactive({
     sid: '',
     username: '',
     password: '',
-    url: computed(()=>{
-        DbForm.host+DbForm.port
-    })
+    url: ''
 })
 
 const rules = reactive<FormRules>({
@@ -95,7 +94,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
         if (valid) {
-            console.log('submit!')
+            DbForm.url = "jdbc:oracle:thin:@"+DbForm.host+":"+DbForm.port+":"+DbForm.sid
             const datas = DbForm
             sqlToolToolRequest.request({
                 url: '/db/add',
@@ -104,21 +103,19 @@ const submitForm = async (formEl: FormInstance | undefined) => {
                 interceptors: {
                     responseInterceptor(res) {
 
-                        // if (res.data == 'yes') {
-                        //     connResult.value = "success"
-                        //     ElNotification({
-                        //         title: 'Success',
-                        //         message: 'Connection succeeded',
-                        //         type: 'success',
-                        //     })
-                        // } else {
-                        //     connResult.value = "failed"
-                        //     ElNotification({
-                        //         title: 'Error',
-                        //         message: 'Connection failed',
-                        //         type: 'error',
-                        //     })
-                        // }
+                        if (res.data.status == 100) {
+                            ElNotification({
+                                title: 'Success',
+                                message: 'Datasource add succeeded',
+                                type: 'success',
+                            })
+                        } else {
+                            ElNotification({
+                                title: 'Error',
+                                message: 'Datasource add failed',
+                                type: 'error',
+                            })
+                        }
 
                         return res
                     },

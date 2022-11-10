@@ -72,7 +72,7 @@ const handleTestConn = () => {
         interceptors: {
             responseInterceptor(res) {
 
-                if (res.data == 'yes') {
+                if (res.data.status == 100) {
                     connResult.value = "success"
                     ElNotification({
                         title: 'Success',
@@ -109,7 +109,7 @@ const handleExecuteSql = () => {
         interceptors: {
             responseInterceptor(res) {
 
-                if (res.data == 'yes') {
+                if (res.data.status == 100) {
                     execResult.value = "success"
                     ElNotification({
                         title: 'Success',
