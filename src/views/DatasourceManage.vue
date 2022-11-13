@@ -1,28 +1,30 @@
 <template>
-    <el-row>
-        <el-table :data="dbListData" stripe style="width: 100%">
-            <el-table-column type="index" />
-            <el-table-column prop="name" label="name" />
-            <el-table-column prop="host" label="host" />
-            <el-table-column prop="port" label="port" />
-            <el-table-column prop="sid" label="sid" />
-            <el-table-column prop="username" label="username" />
-            <el-table-column prop="password" label="password" />
-            <el-table-column fixed="right" label="Operations">
-                <template #default="scope">
-                    <el-button link type="primary" size="small" @click="handleModify(scope.row)">Modify</el-button>
-                    <el-button link type="primary" size="small" @click="handleDelete(scope.row.id)">Delete</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
-    </el-row>
-    <el-row>
-        <el-pagination background layout="prev, pager, next" :total="1000" />
-    </el-row>
-    <el-row>
-        
-    </el-row>
-
+    <el-main>
+        <el-row>
+            <el-table :data="dbListData" stripe style="width: 100%">
+                <el-table-column type="index" />
+                <el-table-column prop="name" label="name" />
+                <el-table-column prop="host" label="host" />
+                <el-table-column prop="port" label="port" />
+                <el-table-column prop="sid" label="sid" />
+                <el-table-column prop="username" label="username" />
+                <el-table-column prop="password" label="password" />
+                <el-table-column fixed="right" label="Operations">
+                    <template #default="scope">
+                        <el-button link type="primary" size="small" @click="handleModify(scope.row)">Modify</el-button>
+                        <el-button link type="primary" size="small" @click="handleDelete(scope.row.id)">Delete
+                        </el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-row>
+        <el-row justify="center">
+            <el-pagination background layout="prev, pager, next" :total="total" 
+            @current-change="handleCurrentChange" 
+            v-model:current-page=pageParam.current 
+            v-model:page-size=pageParam.size />
+        </el-row>
+    </el-main>
 </template>
   
 <script lang="ts" setup>
@@ -37,10 +39,12 @@ interface PageParam {
     size: number
 }
 
-const pageParam: PageParam = {
+const pageParam: PageParam = reactive({
     current: 1,
-    size: 10
-}
+    size: 20
+})
+
+const total = ref(0)
 
 const getDbListData = () => {
     sqlToolToolRequest.request({
@@ -51,6 +55,7 @@ const getDbListData = () => {
             responseInterceptor(res) {
 
                 dbListData.value = res.data.data.records
+                total.value = res.data.data.total
                 console.log(dbListData)
                 return res
             },
@@ -88,4 +93,8 @@ const handleDelete = (id: number) => {
     })
 }
 
+const handleCurrentChange = (val:number) => {
+    pageParam.current=val
+    getDbListData()
+}
 </script>

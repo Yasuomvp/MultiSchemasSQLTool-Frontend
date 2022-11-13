@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import leftSideBar from './components/LeftSideBar.vue';
-import SqlPage from './components/SqlPage.vue';
 
 
 </script>
