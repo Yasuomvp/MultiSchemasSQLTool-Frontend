@@ -1,11 +1,21 @@
 <template>
     <el-main>
+        <el-row justify="end">
+            <el-button primary>
+                Add
+            </el-button>
+
+            <el-dialog v-model="dialogTableVisible" title="Add Datasource Config">
+                <NewDatasource/>
+            </el-dialog>
+
+        </el-row>
         <el-row>
             <el-table :data="dbListData" stripe style="width: 100%">
-                <el-table-column type="index" />
+                <el-table-column type="index" :index='indexMethod' width='50' />
                 <el-table-column prop="name" label="name" />
                 <el-table-column prop="host" label="host" />
-                <el-table-column prop="port" label="port" />
+                <el-table-column prop="port" label="port" width="100" />
                 <el-table-column prop="sid" label="sid" />
                 <el-table-column prop="username" label="username" />
                 <el-table-column prop="password" label="password" />
@@ -19,10 +29,8 @@
             </el-table>
         </el-row>
         <el-row justify="center">
-            <el-pagination background layout="prev, pager, next" :total="total" 
-            @current-change="handleCurrentChange" 
-            v-model:current-page=pageParam.current 
-            v-model:page-size=pageParam.size />
+            <el-pagination background layout="prev, pager, next" :total="total" @current-change="handleCurrentChange"
+                v-model:current-page=pageParam.current v-model:page-size=pageParam.size />
         </el-row>
     </el-main>
 </template>
@@ -31,8 +39,11 @@
 import sqlToolToolRequest from '../service'
 import { ElNotification } from 'element-plus'
 import { reactive, ref } from 'vue'
+import NewDatasource from '@/components/forms/NewDatasource.vue';
 
 const dbListData = ref([])
+
+const dialogTableVisible = true;
 
 interface PageParam {
     current: number,
@@ -43,6 +54,11 @@ const pageParam: PageParam = reactive({
     current: 1,
     size: 20
 })
+
+const indexMethod = (index: number) => {
+    return (pageParam.current - 1) * pageParam.size + index + 1;
+}
+
 
 const total = ref(0)
 
@@ -93,8 +109,8 @@ const handleDelete = (id: number) => {
     })
 }
 
-const handleCurrentChange = (val:number) => {
-    pageParam.current=val
+const handleCurrentChange = (val: number) => {
+    pageParam.current = val
     getDbListData()
 }
 </script>
