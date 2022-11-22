@@ -31,6 +31,9 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { computed } from '@vue/reactivity';
 import sqlToolToolRequest from '../../service'
 import { ElNotification } from 'element-plus'
+import DatasourceManageVue from '@/views/DatasourceManage.vue';
+
+const emit = defineEmits(['refreshData'])
 
 const formSize = ref('default')
 const DbFormRef = ref<FormInstance>()
@@ -109,12 +112,15 @@ const submitForm = async (formEl: FormInstance | undefined) => {
                                 message: 'Datasource add succeeded',
                                 type: 'success',
                             })
+                            emit('refreshData')
+                            resetForm(DbFormRef.value)
                         } else {
                             ElNotification({
                                 title: 'Error',
                                 message: 'Datasource add failed',
                                 type: 'error',
                             })
+                            resetForm(DbFormRef.value)
                         }
 
                         return res

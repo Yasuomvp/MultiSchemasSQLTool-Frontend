@@ -1,12 +1,12 @@
 <template>
     <el-main>
         <el-row justify="end">
-            <el-button primary>
+            <el-button primary @click="dialogTableVisible = true">
                 Add
             </el-button>
 
             <el-dialog v-model="dialogTableVisible" title="Add Datasource Config">
-                <NewDatasource/>
+                <NewDatasource @refreshData='getDbListData'/>
             </el-dialog>
 
         </el-row>
@@ -43,7 +43,7 @@ import NewDatasource from '@/components/forms/NewDatasource.vue';
 
 const dbListData = ref([])
 
-const dialogTableVisible = true;
+const dialogTableVisible = ref(false);
 
 interface PageParam {
     current: number,
