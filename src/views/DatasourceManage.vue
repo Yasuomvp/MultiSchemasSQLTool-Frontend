@@ -39,7 +39,10 @@
 import sqlToolToolRequest from '../service'
 import { ElNotification } from 'element-plus'
 import { reactive, ref } from 'vue'
-import NewDatasource from '@/components/forms/NewDatasource.vue';
+import NewDatasource from '@/components/forms/NewDatasource.vue'
+import { mainStore } from '@/stores'
+
+const store = mainStore()
 
 const dbListData = ref([])
 
@@ -72,7 +75,8 @@ const getDbListData = () => {
 
                 dbListData.value = res.data.data.records
                 total.value = res.data.data.total
-                console.log(dbListData)
+                //存入pinia供其他组件调用
+                store.dataSourceList = dbListData.value
                 return res
             },
         }
