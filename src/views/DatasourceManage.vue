@@ -75,8 +75,8 @@ const getDbListData = () => {
 
                 dbListData.value = res.data.data.records
                 total.value = res.data.data.total
-                //存入pinia供其他组件调用
-                store.dataSourceList = dbListData.value
+                // //存入pinia供其他组件调用
+                // store.dataSourceList = dbListData.value
                 return res
             },
         }

@@ -7,7 +7,7 @@
                     </el-icon>
                     <span>SQL Execute</span>
                 </el-menu-item>
-                <el-menu-item index="2">
+                <el-menu-item index="workOrderManage">
                     <el-icon>
                         <document />
                     </el-icon>

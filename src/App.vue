@@ -1,6 +1,40 @@
 <script setup lang="ts">
 import leftSideBar from './components/LeftSideBar.vue';
+import sqlToolToolRequest from './service'
+import { mainStore } from '@/stores'
 
+const store = mainStore()
+
+const storeAllDB = () => {
+    sqlToolToolRequest.request({
+        url: '/db/listAll',
+        method: 'get',
+        interceptors: {
+            responseInterceptor(res) {
+                //存入pinia供其他组件调用
+                store.dataSourceList = res.data.data
+                return res
+            },
+        }
+    })
+}
+
+const storeAllWO = () => {
+    sqlToolToolRequest.request({
+        url: '/wo/listAll',
+        method: 'get',
+        interceptors: {
+            responseInterceptor(res) {
+                //存入pinia供其他组件调用
+                store.workOrderList = res.data.data
+                return res
+            },
+        }
+    })
+}
+
+storeAllDB()
+storeAllWO()
 
 </script>
 

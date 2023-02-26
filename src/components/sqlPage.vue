@@ -55,13 +55,13 @@ import { ref } from 'vue';
 import sqlToolToolRequest from '../service'
 import { ElNotification } from 'element-plus'
 
-const dbUrl = ref("jdbc:oracle:thin:@workout996.icu:1521:XE")
+const dbUrl = ref("jdbc:oracle:thin:@123.249.99.34:1520:XE")
 const dbUsername = ref("system")
-const dbPassword = ref("Yasuomvp131213")
+const dbPassword = ref("CanIHelp?663998^")
 const connResult = ref("")
 const execResult = ref("")
-const schemas = ref("TEST01,TEST02,TEST03,TEST04,TEST05,TEST06,TEST07,TEST08,TEST09")
-const sqls = ref("select * from usert;")
+const schemas = ref("TEST0,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9")
+const sqls = ref("select * from pokemon;")
 
 const handleTestConn = () => {
     const datas = { 'dbUrl': dbUrl.value, 'dbUsername': dbUsername.value, 'dbPassword': dbPassword.value }
