@@ -6,7 +6,7 @@
             </el-button>
 
             <el-dialog v-model="dialogTableVisible" title="Create Workorder">
-                <NewWorkorder @refreshData='getWoListData'/>
+                <NewWorkorder @refreshData='getWoListData' />
             </el-dialog>
 
         </el-row>
@@ -15,14 +15,16 @@
                 <el-table-column type="index" :index='indexMethod' />
                 <el-table-column prop="name" label="name" />
                 <el-table-column prop="describeText" label="describeText" />
-                <el-table-column prop="time" label="time" width="300"/>
+                <el-table-column prop="time" label="time" width="300" />
                 <el-table-column prop="testStatus" label="testStatus" />
-                <el-table-column prop="devStatus" label="devStatus" />
+                <el-table-column prop="prodStatus" label="prodStatus" />
                 <el-table-column prop="datasource" label="datasource" />
                 <el-table-column prop="scripts" label="scripts" />
                 <el-table-column fixed="right" label="Operations">
                     <template #default="scope">
+                        <el-button link type="primary" size="small" @click="debugInfo(scope.row)">info</el-button>
                         <el-button link type="primary" size="small" @click="handleExecuteWO(scope.row)">execute</el-button>
+
                     </template>
                 </el-table-column>
             </el-table>
@@ -38,6 +40,7 @@ import { reactive, ref } from 'vue'
 import sqlToolToolRequest from '../service'
 import { mainStore } from '@/stores'
 import NewWorkorder from '@/components/forms/NewWorkorder.vue';
+import { ElNotification } from 'element-plus'
 
 const dialogTableVisible = ref(false);
 const woListData = ref([])
@@ -77,7 +80,53 @@ const getWoListData = () => {
 }
 getWoListData()
 
+const storeAllWO = () => {
+    sqlToolToolRequest.request({
+        url: '/wo/listAll',
+        method: 'get',
+        interceptors: {
+            responseInterceptor(res) {
+                //存入pinia供其他组件调用
+                store.workOrderList = res.data.data
+                return res
+            },
+        }
+    })
+}
+
 const handleExecuteWO = (workOrder: WorkOrder) => {
+    sqlToolToolRequest.request({
+        url: '/wo/execute',
+        method: 'post',
+        data: workOrder,
+        interceptors: {
+            responseInterceptor(res) {
+
+                if (res.data.status == 100) {
+                    ElNotification({
+                        title: 'Success',
+                        message: 'Workorder execute succeeded',
+                        type: 'success',
+                    })
+
+                } else {
+                    ElNotification({
+                        title: 'Error',
+                        message: 'Workorder execute failed',
+                        type: 'error',
+                    })
+                }
+                getWoListData()
+                storeAllWO()
+                return res
+
+
+            },
+        }
+    })
+}
+
+const debugInfo = (workOrder: WorkOrder) => {
     alert(JSON.stringify(workOrder))
 }
 
@@ -105,7 +154,7 @@ interface WorkOrder {
     dbId: number,
     time: string,
     testStatus: number,
-    devStatus: number,
+    prodStatus: number,
     scripts: Script,
     datasource: Datasource
 }

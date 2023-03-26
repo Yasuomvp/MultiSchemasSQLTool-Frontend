@@ -19,6 +19,12 @@
                     </el-icon>
                     <span>DataSource Management</span>
                 </el-menu-item>
+                <el-menu-item index="logManage">
+                    <el-icon>
+                        <setting />
+                    </el-icon>
+                    <span>Log Management</span>
+                </el-menu-item>
             </el-menu>
     </el-aside>
 </template>

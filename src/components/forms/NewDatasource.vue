@@ -33,6 +33,10 @@ import sqlToolToolRequest from '../../service'
 import { ElNotification } from 'element-plus'
 import DatasourceManageVue from '@/views/DatasourceManage.vue';
 
+import { mainStore } from '@/stores'
+
+const store = mainStore()
+
 const emit = defineEmits(['refreshData'])
 
 const formSize = ref('default')
@@ -93,6 +97,21 @@ const rules = reactive<FormRules>({
     ]
 })
 
+
+const storeAllWO = () => {
+    sqlToolToolRequest.request({
+        url: '/wo/listAll',
+        method: 'get',
+        interceptors: {
+            responseInterceptor(res) {
+                //存入pinia供其他组件调用
+                store.workOrderList = res.data.data
+                return res
+            },
+        }
+    })
+}
+
 const submitForm = async (formEl: FormInstance | undefined) => {
     if (!formEl) return
     await formEl.validate((valid, fields) => {
@@ -112,6 +131,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
                                 message: 'Datasource add succeeded',
                                 type: 'success',
                             })
+                            //更新pinia store
+                            storeAllWO()
                             emit('refreshData')
                             resetForm(DbFormRef.value)
                         } else {
