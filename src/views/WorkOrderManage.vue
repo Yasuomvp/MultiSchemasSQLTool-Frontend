@@ -63,7 +63,7 @@ const pageParam: PageParam = reactive({
 
 const getWoListData = () => {
     sqlToolToolRequest.request({
-        url: '/wo/listAllByPage',
+        url: '/api/workorders',
         method: 'get',
         params: pageParam,
         interceptors: {
@@ -82,7 +82,7 @@ getWoListData()
 
 const storeAllWO = () => {
     sqlToolToolRequest.request({
-        url: '/wo/listAll',
+        url: '/api/workorders',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {
@@ -96,9 +96,9 @@ const storeAllWO = () => {
 
 const handleExecuteWO = (workOrder: WorkOrder) => {
     sqlToolToolRequest.request({
-        url: '/wo/execute',
+        url: '/api/workorders/execute',
         method: 'post',
-        data: workOrder,
+        data: workOrder.id,
         interceptors: {
             responseInterceptor(res) {
 

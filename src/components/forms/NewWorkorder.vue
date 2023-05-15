@@ -92,7 +92,7 @@ const WoForm = reactive({
 
 const storeAllWO = () => {
     sqlToolToolRequest.request({
-        url: '/wo/listAll',
+        url: '/api/workorders/listAll',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {
@@ -155,7 +155,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             }
             
             sqlToolToolRequest.request({
-                url: '/wo/add',
+                url: '/api/workorders',
                 method: 'post',
                 data: datas,
                 interceptors: {

@@ -67,7 +67,7 @@ const total = ref(0)
 
 const getDbListData = () => {
     sqlToolToolRequest.request({
-        url: '/db/listAllByPage',
+        url: '/api/datasources',
         method: 'get',
         params: pageParam,
         interceptors: {
@@ -102,7 +102,7 @@ const handleModify = (datasource: Datasource) => {
 
 const handleDelete = (id: number) => {
     sqlToolToolRequest.request({
-        url: '/db/del/' + id,
+        url: 'api/datasources/' + id,
         method: 'delete',
         interceptors: {
             responseInterceptor(res) {

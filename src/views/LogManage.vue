@@ -57,7 +57,7 @@ const pageParam: PageParam = reactive({
 
 const getWoListData = () => {
     sqlToolToolRequest.request({
-        url: '/log/listAllByPage',
+        url: '/api/log',
         method: 'get',
         params: pageParam,
         interceptors: {

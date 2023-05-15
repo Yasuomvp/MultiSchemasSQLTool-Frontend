@@ -7,7 +7,7 @@ const store = mainStore()
 
 const storeAllDB = () => {
     sqlToolToolRequest.request({
-        url: '/db/listAll',
+        url: '/api/datasources',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {
@@ -21,7 +21,7 @@ const storeAllDB = () => {
 
 const storeAllWO = () => {
     sqlToolToolRequest.request({
-        url: '/wo/listAll',
+        url: '/api/workorders',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {

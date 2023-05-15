@@ -100,7 +100,7 @@ const rules = reactive<FormRules>({
 
 const storeAllWO = () => {
     sqlToolToolRequest.request({
-        url: '/wo/listAll',
+        url: '/api/wo',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {
@@ -119,7 +119,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
             DbForm.url = "jdbc:oracle:thin:@"+DbForm.host+":"+DbForm.port+":"+DbForm.sid
             const datas = DbForm
             sqlToolToolRequest.request({
-                url: '/db/add',
+                url: '/api/datasources',
                 method: 'post',
                 data: datas,
                 interceptors: {

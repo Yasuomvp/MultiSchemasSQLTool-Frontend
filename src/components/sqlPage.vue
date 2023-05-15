@@ -55,9 +55,9 @@ import { ref } from 'vue';
 import sqlToolToolRequest from '../service'
 import { ElNotification } from 'element-plus'
 
-const dbUrl = ref("jdbc:oracle:thin:@123.249.99.34:1520:XE")
+const dbUrl = ref("jdbc:oracle:thin:@192.168.25.129:1521:XE")
 const dbUsername = ref("system")
-const dbPassword = ref("CanIHelp?663998^")
+const dbPassword = ref("Qazwsx1-")
 const connResult = ref("")
 const execResult = ref("")
 const schemas = ref("TEST0,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9")
@@ -66,7 +66,7 @@ const sqls = ref("select * from pokemon;")
 const handleTestConn = () => {
     const datas = { 'dbUrl': dbUrl.value, 'dbUsername': dbUsername.value, 'dbPassword': dbPassword.value }
     sqlToolToolRequest.request({
-        url: '/tool/dbConn',
+        url: '/api/dbConn',
         method: 'post',
         data: datas,
         interceptors: {
@@ -103,7 +103,7 @@ const clearSchemaAndSql = () => {
 const handleExecuteSql = () => {
     const datas = { 'schemas': schemas.value, 'sqls': sqls.value }
     sqlToolToolRequest.request({
-        url: '/tool/executeSqlByFuture',
+        url: '/api/executeSqlByFuture',
         method: 'post',
         data: datas,
         interceptors: {
