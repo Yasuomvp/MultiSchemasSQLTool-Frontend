@@ -92,7 +92,7 @@ const WoForm = reactive({
 
 const storeAllWO = () => {
     sqlToolToolRequest.request({
-        url: '/api/workorders/listAll',
+        url: '/api/workorders',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {

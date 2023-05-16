@@ -21,7 +21,8 @@
                 <el-table-column prop="password" label="password" />
                 <el-table-column fixed="right" label="Operations">
                     <template #default="scope">
-                        <el-button link type="primary" size="small" @click="handleModify(scope.row)">Modify</el-button>
+                        <el-button link type="primary" size="small" @click="handleConnTest(scope.row.id)">Connection Test</el-button>
+                        <!-- <el-button link type="primary" size="small" @click="handleModify(scope.row)">Modify</el-button> -->
                         <el-button link type="primary" size="small" @click="handleDelete(scope.row.id)">Delete
                         </el-button>
                     </template>
@@ -84,6 +85,33 @@ const getDbListData = () => {
 }
 getDbListData()
 
+const handleConnTest = (id : number) => {
+    sqlToolToolRequest.request({
+        url: '/api/datasources/conn/' + id,
+        method: 'post',
+        interceptors: {
+            responseInterceptor(res) {
+
+                if (res.data.status == 100) {
+                    ElNotification({
+                        title: 'Success',
+                        message: 'Connection succeeded',
+                        type: 'success',
+                    })
+                } else {
+                    ElNotification({
+                        title: 'Error',
+                        message: 'Connection failed',
+                        type: 'error',
+                    })
+                }
+
+                return res
+            },
+        }
+    })
+}
+
 interface Datasource {
     id: number,
     name: string,
@@ -106,7 +134,20 @@ const handleDelete = (id: number) => {
         method: 'delete',
         interceptors: {
             responseInterceptor(res) {
-                getDbListData()
+                if (res.data.status == 100) {
+                    getDbListData()
+                    ElNotification({
+                        title: 'Success',
+                        message: 'Delete succeeded',
+                        type: 'success',
+                    })
+                } else {
+                    ElNotification({
+                        title: 'Error',
+                        message: 'Delete failed[Foreign key constraint]',
+                        type: 'error',
+                    })
+                }
                 return res
             },
         }

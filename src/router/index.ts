@@ -4,6 +4,8 @@ import NewDatasourceVue from '@/components/forms/NewDatasource.vue'
 import DatasourceManageVue from '@/views/DatasourceManage.vue'
 import WorkOrderManageVue from '@/views/WorkOrderManage.vue'
 import LogManageVue from '@/views/LogManage.vue'
+import ByWorkOrderVue from '@/views/ByWorkorder.vue'
+import ByTimeRangeVue from '@/views/ByTimeRange.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +30,16 @@ const router = createRouter({
       name: 'logManage',
       component: LogManageVue
     },
+    {
+      path: '/byWorkOrder',
+      name: 'byWorkOrder',
+      component: ByWorkOrderVue
+    },
+    {
+      path: '/byTimeRange',
+      name: 'byTimeRange',
+      component: ByTimeRangeVue
+    }
 
   ]
 })

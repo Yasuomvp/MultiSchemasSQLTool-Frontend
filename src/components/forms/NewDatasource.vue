@@ -98,14 +98,14 @@ const rules = reactive<FormRules>({
 })
 
 
-const storeAllWO = () => {
+const storeAllDB = () => {
     sqlToolToolRequest.request({
-        url: '/api/wo',
+        url: '/api/datasources',
         method: 'get',
         interceptors: {
             responseInterceptor(res) {
                 //存入pinia供其他组件调用
-                store.workOrderList = res.data.data
+                store.dataSourceList = res.data.data
                 return res
             },
         }
@@ -132,7 +132,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
                                 type: 'success',
                             })
                             //更新pinia store
-                            storeAllWO()
+                            storeAllDB()
+                            alert(JSON.stringify(store.dataSourceList,null,4))
                             emit('refreshData')
                             resetForm(DbFormRef.value)
                         } else {

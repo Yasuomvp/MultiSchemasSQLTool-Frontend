@@ -15,16 +15,15 @@
                 <el-table-column type="index" :index='indexMethod' />
                 <el-table-column prop="name" label="name" />
                 <el-table-column prop="describeText" label="describeText" />
-                <el-table-column prop="time" label="time" width="300" />
+                <el-table-column prop="time" label="time" width="300" sortable/>
                 <el-table-column prop="testStatus" label="testStatus" />
                 <el-table-column prop="prodStatus" label="prodStatus" />
-                <el-table-column prop="datasource" label="datasource" />
-                <el-table-column prop="scripts" label="scripts" />
                 <el-table-column fixed="right" label="Operations">
                     <template #default="scope">
-                        <el-button link type="primary" size="small" @click="debugInfo(scope.row)">info</el-button>
-                        <el-button link type="primary" size="small" @click="handleExecuteWO(scope.row)">execute</el-button>
+                        <el-button link type="primary" size="small" @click="handleClickInfo(scope.row)">info</el-button>
 
+                        <el-button link type="primary" size="small" slot="refrence"
+                            @click="handleExecuteWO(scope.row)">execute</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -34,6 +33,9 @@
                 v-model:current-page=pageParam.current v-model:page-size=pageParam.size />
         </el-row>
     </el-main>
+    <el-drawer v-model="drawer" title="I am the title" :with-header="false">
+        <pre>{{ drawerData }}</pre>
+                        </el-drawer>
 </template>
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
@@ -42,10 +44,13 @@ import { mainStore } from '@/stores'
 import NewWorkorder from '@/components/forms/NewWorkorder.vue';
 import { ElNotification } from 'element-plus'
 
+
 const dialogTableVisible = ref(false);
 const woListData = ref([])
 const total = ref(0)
 const store = mainStore()
+const drawer = ref(false)
+const drawerData = ref("")
 
 const handleCurrentChange = (val: number) => {
     pageParam.current = val
@@ -96,9 +101,8 @@ const storeAllWO = () => {
 
 const handleExecuteWO = (workOrder: WorkOrder) => {
     sqlToolToolRequest.request({
-        url: '/api/workorders/execute',
+        url: '/api/workorders/execute/' + workOrder.id,
         method: 'post',
-        data: workOrder.id,
         interceptors: {
             responseInterceptor(res) {
 
@@ -126,8 +130,10 @@ const handleExecuteWO = (workOrder: WorkOrder) => {
     })
 }
 
-const debugInfo = (workOrder: WorkOrder) => {
-    alert(JSON.stringify(workOrder))
+const handleClickInfo = (workOrder: WorkOrder) => {
+    drawerData.value = JSON.stringify(workOrder, null, 4)
+    drawer.value = true
+
 }
 
 interface Script {

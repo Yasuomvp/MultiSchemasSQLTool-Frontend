@@ -19,7 +19,7 @@
                 <el-table-column prop="sqlContent" label="sqlContent" width="400"/>
                 <el-table-column prop="errorSql" label="errorSql" width="400"/>
                 <el-table-column prop="executeStatus" label="Status" width='70'/>
-                <el-table-column prop="executeTime" label="executeTime" />
+                <el-table-column prop="executeTime" label="executeTime" width='180' sortable/>
                 <!-- <el-table-column fixed="right" label="Operations">
                     <template #default="scope">
                         <el-button link type="primary" size="small" @click="handleModify(scope.row)">Modify</el-button>
