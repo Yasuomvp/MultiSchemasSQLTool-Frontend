@@ -18,6 +18,7 @@
 import { ref } from 'vue'
 import sqlToolToolRequest from '../service'
 import { saveAs } from 'file-saver';
+import { ElNotification } from 'element-plus'
 
 const dateTimeLeft = ref('')
 const dateTimeRight = ref('')
@@ -48,8 +49,12 @@ const shortcuts = [
 
 const handleExport = () => {
 
-    if (dateTimeLeft.value == null || dateTimeRight.value.length == 0) {
-        alert("Please select time range")
+    if (dateTimeLeft.value == null || dateTimeLeft.value.length == 0 || dateTimeRight.value == null || dateTimeRight.value.length == 0) {
+        ElNotification({
+                        title: 'Error',
+                        message: "Please select time range",
+                        type: 'error',
+                    })
         return
     }
 

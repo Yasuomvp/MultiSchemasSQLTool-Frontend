@@ -9,7 +9,7 @@
 
 
 
-    </el-main>>
+    </el-main>
 </template>
 
 <script lang="ts" setup>
@@ -44,7 +44,11 @@ function downloadTxtFile(content: string) {
 const handleExport = () => {
 
     if (rightList.value == null || rightList.value.length == 0) {
-        alert("Please select at least one workorder")
+        ElNotification({
+                        title: 'Error',
+                        message: "Please select at least one workorder",
+                        type: 'error',
+                    })
         return
     }
 

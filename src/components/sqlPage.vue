@@ -73,14 +73,14 @@ const handleTestConn = () => {
             responseInterceptor(res) {
 
                 if (res.data.status == 100) {
-                    connResult.value = "success"
+                    connResult.value = "success✅"
                     ElNotification({
                         title: 'Success',
                         message: 'Connection succeeded',
                         type: 'success',
                     })
                 } else {
-                    connResult.value = "failed"
+                    connResult.value = "failed❌"
                     ElNotification({
                         title: 'Error',
                         message: 'Connection failed',
@@ -90,6 +90,7 @@ const handleTestConn = () => {
 
                 return res
             },
+
         }
     })
 
@@ -110,14 +111,14 @@ const handleExecuteSql = () => {
             responseInterceptor(res) {
 
                 if (res.data.status == 100) {
-                    execResult.value = "success"
+                    execResult.value = "success✅"
                     ElNotification({
                         title: 'Success',
                         message: 'Execute succeeded',
                         type: 'success',
                     })
                 } else {
-                    execResult.value = "failed"
+                    execResult.value = "failed❌"
                     ElNotification({
                         title: 'Error',
                         message: 'Execute failed',
