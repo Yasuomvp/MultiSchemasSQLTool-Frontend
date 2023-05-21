@@ -12,14 +12,14 @@
         </el-row>
         <el-row>
             <el-table :data="logListData" stripe style="width: 100%">
-                <el-table-column type="index" :index='indexMethod' width='50' />
+                <el-table-column type="index" :index='indexMethod' width='70' />
                 <el-table-column prop="workorder.name" label="workorderName" />
                 <el-table-column prop="workorder.datasource.name" label="datasourceName" />
                 <el-table-column prop="executeSchema" label="executeSchema" />
                 <el-table-column prop="sqlContent" label="sqlContent" width="400"/>
                 <el-table-column prop="errorSql" label="errorSql" width="400"/>
                 <el-table-column prop="executeStatus" label="Status" width='70'/>
-                <el-table-column prop="executeTime" label="executeTime" width='180' sortable/>
+                <el-table-column prop="executeTime" label="executeTime" width='170' sortable/>
                 <!-- <el-table-column fixed="right" label="Operations">
                     <template #default="scope">
                         <el-button link type="primary" size="small" @click="handleModify(scope.row)">Modify</el-button>

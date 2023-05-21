@@ -30,7 +30,7 @@
         <el-row>
             <el-col :span="4"></el-col>
             <el-col :span="16">
-                <el-input v-model="schemas" autosize type="textarea"
+                Schemas:<el-input v-model="schemas" autosize type="textarea"
                     placeholder="Please input schemas,split with command" />
             </el-col>
             <el-col :span="4"></el-col>
@@ -42,7 +42,7 @@
         <el-row>
             <el-col :span="4"></el-col>
             <el-col :span="16">
-                <el-input v-model="sqls" :autosize="{ minRows: 30 }" type="textarea"
+                SQL Content:<el-input v-model="sqls" :autosize="{ minRows: 30 }" type="textarea"
                     placeholder="Please enter sql separated by semicolons" />
             </el-col>
             <el-col :span="4"></el-col>
@@ -60,7 +60,7 @@ const dbUsername = ref("system")
 const dbPassword = ref("Qazwsx1-.")
 const connResult = ref("")
 const execResult = ref("")
-const schemas = ref("TEST0,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9")
+const schemas = ref("EBPM0000MG,EBPM0001MG,EBPM0002MG,EBPM0003MG,EBPM0004MG,EBPM0005MG,EBPM0006MG,EBPM0007MG,EBPM0008MG,EBPM0009MG")
 const sqls = ref("select * from pokemon;")
 
 const handleTestConn = () => {

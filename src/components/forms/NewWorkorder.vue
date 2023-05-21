@@ -16,9 +16,9 @@
 
         <el-form-item :label="'Script ' + index" v-for="(item, index) in WoForm.scripts">
             <el-main style="border-radius: 20px">
-                <el-input v-model="item.value.schemasContent" autosize type="textarea"
+                Schemas:<el-input v-model="item.value.schemasContent" autosize type="textarea"
                     placeholder="Please input schemas,split with command" />
-                <el-input v-model="item.value.sqlContent" autosize type="textarea"
+                SQL Content:<el-input v-model="item.value.sqlContent" autosize type="textarea"
                     placeholder="Please enter sql separated by semicolons" />
                 <el-button type="danger" class="mt-2" @click.prevent="removeScript(item)">Delete</el-button>
             </el-main>
