@@ -61,7 +61,7 @@ const dbPassword = ref("Qazwsx1-.")
 const connResult = ref("")
 const execResult = ref("")
 const schemas = ref("EBPM0000MG,EBPM0001MG,EBPM0002MG,EBPM0003MG,EBPM0004MG,EBPM0005MG,EBPM0006MG,EBPM0007MG,EBPM0008MG,EBPM0009MG")
-const sqls = ref("select * from pokemon;")
+const sqls = ref("delete from pokemon;")
 
 const handleTestConn = () => {
     const datas = { 'dbUrl': dbUrl.value, 'dbUsername': dbUsername.value, 'dbPassword': dbPassword.value }

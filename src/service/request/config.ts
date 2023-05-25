@@ -5,7 +5,7 @@
 
 let BASE_URL = ''
 
-const TIME_OUT = 10000
+const TIME_OUT = 20000
 
 if (process.env.NODE_ENV === 'development') {
   // 这里BASE_URL 后地址根据实际项目服务器地址填写，这里是示例
