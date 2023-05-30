@@ -26,7 +26,16 @@ class SqlToolRequest {
     // 2. 全局拦截器(所有实例都有的拦截器)
     this.instance.interceptors.request.use(
       (config: SqlToolRequestConfig) => {
-        console.log('全局拦截器: 请求成功拦截')
+        // console.log('全局拦截器: 请求成功拦截')
+        if (config.params == null){
+          config.params = {
+            token:"eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0ZDNiZDc3MC1kZDRmLTQ1NDctYTg0NS1kNzQ4ZTllZTI4ZDYifQ.8POc7RAa9YE5c1VLVsEhOEUJf6dBKnSw59tW3bcVhMo"
+          }
+        }
+        else {
+          config.params.token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI0ZDNiZDc3MC1kZDRmLTQ1NDctYTg0NS1kNzQ4ZTllZTI4ZDYifQ.8POc7RAa9YE5c1VLVsEhOEUJf6dBKnSw59tW3bcVhMo"
+        }
+        console.log(config.params)
         return config
       },
       //  请求失败拦截
@@ -34,7 +43,7 @@ class SqlToolRequest {
     )
     this.instance.interceptors.response.use(
       (res: AxiosResponse) => {
-        console.log('全局拦截器：响应成功拦截')
+        // console.log('全局拦截器：响应成功拦截')
         return res
       },
       // 响应失败拦截
