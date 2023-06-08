@@ -21,7 +21,7 @@
                 <el-table-column fixed="right" label="Operations">
                     <template #default="scope">
                         <el-button link type="primary" size="small" @click="handleClickInfo(scope.row)">info</el-button>
-
+                        <el-button link type="primary" size="small" @click="handleExport(scope.row.id,scope.row.name)">export</el-button>
                         <el-button link type="primary" size="small" slot="refrence"
                             @click="handleExecuteWO(scope.row)">execute</el-button>
                     </template>
@@ -43,7 +43,7 @@ import sqlToolToolRequest from '../service'
 import { mainStore } from '@/stores'
 import NewWorkorder from '@/components/forms/NewWorkorder.vue';
 import { ElNotification } from 'element-plus'
-
+import { saveAs } from 'file-saver';
 
 const dialogTableVisible = ref(false);
 const woListData = ref([])
@@ -59,6 +59,27 @@ const handleCurrentChange = (val: number) => {
 
 const indexMethod = (index: number) => {
     return (pageParam.current - 1) * pageParam.size + index + 1;
+}
+
+function downloadTxtFile(content: string,fileName :string) {
+  const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+  saveAs(blob, fileName);
+}
+
+const handleExport = (id:number,name:string) => {
+
+    const arr = [id]
+    sqlToolToolRequest.request({
+        url: '/api/export/workorders',
+        method: 'post',
+        data: arr,
+        interceptors: {
+            responseInterceptor(res) {
+                downloadTxtFile(res.data.data.join(""),name+".sql");
+                return res
+            },
+        }
+    })
 }
 
 const pageParam: PageParam = reactive({
